@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import KinderCard from 'react-tinder-card';
 import './KinderCards.css';
+import axios from './axios';
 
 function KinderCards() {
-  const [people, setPeople] = useState([
-    {
-      name: 'Candy',
-      url:
-        'https://www.rd.com/wp-content/uploads/2019/01/shutterstock_673465372.jpg',
-    },
-    {
-      name: 'Cookie',
-      url:
-        'https://topdogtips.com/wp-content/uploads/2014/12/Top-10-Cute-Dog-Breeds-Who-Wins-1.jpg',
-    },
-  ]);
+  const [people, setPeople] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      const req = await axios.get('/kinder/cards');
+
+      setPeople(req.data);
+    }
+    fetchData();
+  }, []);
+
+  console.log(people);
 
   const swiped = (direction, nameToDelete) => {
     console.log('removing + ', nameToDelete);
@@ -36,7 +37,7 @@ function KinderCards() {
             onCardLeftScreen={() => outOfFrame(person.name)}
           >
             <div
-              style={{ backgroundImage: `url(${person.url})` }}
+              style={{ backgroundImage: `url(${person.imageUrl})` }}
               className="card"
             >
               <h3>{person.name}</h3>
