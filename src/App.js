@@ -1,11 +1,12 @@
 import './App.css';
 import Header from './Header';
+import KinderCards from './KinderCards';
 
 function App() {
   return (
     <div className="app">
       <Header />
-      {/* tinder cards */}
+      <KinderCards />
       {/* Swipe buttons */}
     </div>
   );
